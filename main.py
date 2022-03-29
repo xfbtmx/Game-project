@@ -4,11 +4,10 @@ from config import *
 import sys
 
 class Game:
-    def_init_(self):
+    def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font('Arial', 32)
         self.running = True
     
     def new(self):
@@ -25,14 +24,15 @@ class Game:
     def events(self):
         # game loop events
         for event in pygame.event.get():
-            if event.type = pygame.QUIT:
+            if event.type == pygame.QUIT:
                 self.playing = False
                 self.running = False
-                  -
 
     def update(self):
+        pass
 
     def draw(self):
+        pass
 
     def main(self):
         # game loop
@@ -43,5 +43,17 @@ class Game:
         self.running = False
 
     def game_over(self):
+        pass
 
     def intro_screen(self):
+        pass
+
+g = Game()
+g.intro_screen()
+g.new()
+while g.running:
+    g.main()
+    g.game_over()
+
+pygame.quit()
+sys.exit()
