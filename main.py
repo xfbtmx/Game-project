@@ -1,19 +1,19 @@
-import pygame, sys
+import pygame, sys, random
 from pygame.math import Vector2
 
 class FRUIT:
     def __init__(self):
-        self.x = 5
-        self.y = 5
+        self.x = random.randint(0,cell_number -1)
+        self.y = random.randint(0,cell_number -1)
         self.pos = Vector2(self.x,self.y) 
 
     def draw_fruit(self):
-        fruit_rect = pygame.Rect(self.pos.x,self.pos.y,cell_size,cell_number)
-        pygame.draw.rect(screen,(126,166,114),fruit_rect)
+        fruit_rectang = pygame.Rect(self.pos.x * cell_size,self.pos.y * cell_size,cell_size,cell_size)
+        pygame.draw.rect(screen,(126,166,114),fruit_rectang)
 
 pygame.init()
-cell_size = 40
-cell_number = 20
+cell_size = 36
+cell_number = 18
 screen = pygame.display.set_mode((cell_number * cell_size,cell_number * cell_size))
 clock = pygame.time.Clock()
 
