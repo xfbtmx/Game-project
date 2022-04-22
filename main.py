@@ -1,59 +1,17 @@
-import pygame
-from sprites import *
-from config import *
-import sys
+import pygame, sys
 
-class Game:
-    def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-        self.clock = pygame.time.Clock()
-        self.running = True
-    
-    def new(self):
-        # a new game starts
-        self.playing = True
+pygame.init()
+cell_size = 36
+cell_number = 18
+screen = pygame.display.set_mode((cell_number * cell_size,cell_number * cell_size))
+clock = pygame.time.Clock()
 
-        self.all_sprites = pygame.sprite.LayeredUpdates()
-        self.blocks = pygame.sprite.LayeredUpdates()
-        self.enemies = pygame.sprite.LayeredUpdates()
-        self.attacks = pygame.sprite.LayeredUpdates()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
-        self.player = Player(self, 1, 2)
-    
-    def events(self):
-        # game loop events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.playing = False
-                self.running = False
-
-    def update(self):
-        pass
-
-    def draw(self):
-        pass
-
-    def main(self):
-        # game loop
-        while self.playing:
-            self.events()
-            self.update()
-            self.draw()
-        self.running = False
-
-    def game_over(self):
-        pass
-
-    def intro_screen(self):
-        pass
-
-g = Game()
-g.intro_screen()
-g.new()
-while g.running:
-    g.main()
-    g.game_over()
-
-pygame.quit()
-sys.exit()
+screen.fill((175,215,70))
+pygame.display.update()
+clock.tick(60)
