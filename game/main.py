@@ -2,6 +2,7 @@ from turtle import color
 import pygame, sys, random
 from pygame.math import Vector2
 
+
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
@@ -56,13 +57,13 @@ class SNAKE:
                        screen.blit(self.body_tr,block_rect)
                    elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
                        screen.blit(self.body_br,block_rect)
-                
+
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
         if head_relation == Vector2(1,0): self.head = self.head_left
         elif head_relation == Vector2(-1,0): self.head = self.head_right
         elif head_relation == Vector2(0,1): self.head = self.head_up
-        elif head_relation == Vector2(0,-1): self.head = self.head_down          
+        elif head_relation == Vector2(0,-1): self.head = self.head_down
 
     def update_tail_graphics(self):
         tail_relation = self.body[-2] - self.body[-1]
@@ -83,15 +84,14 @@ class SNAKE:
             self.body = body_copy[:]   
 
     def add_block(self):
-        self.new_block = True
+            self.new_block = True
 
     def play_crunch_sound(self):
-        self.crunch_sound.play()
+            self.crunch_sound.play()
 
     def reset(self):
-        self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
-        self.direction = Vector2(0,0)
-
+            self.body = [Vector2(5,10),Vector2(4,10),Vector2(3,10)]
+            self.direction = Vector2(0,0)
 
 class FRUIT:
     def __init__(self):
@@ -105,7 +105,6 @@ class FRUIT:
         self.x = random.randint(0,cell_number -1)
         self.y = random.randint(0,cell_number -1)
         self.pos = Vector2(self.x,self.y)   
-
 
 class MAIN:
     def __init__(self):
@@ -132,7 +131,6 @@ class MAIN:
         for block in self.snake.body[1:]:
             if block == self.fruit.pos:
                 self.fruit.randomize()
-
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
@@ -173,8 +171,6 @@ class MAIN:
         screen.blit(apple,apple_rect)
         pygame.draw.rect(screen,(56,74,12),bg_rect,2)
                         
-
-            
 pygame.mixer.pre_init(44100,-16,2,512)
 pygame.init()
 cell_size = 36
@@ -210,7 +206,6 @@ while True:
                 if main_game.snake.direction.x != 1:                
                     main_game.snake.direction = Vector2(-1,0)
             
-
     screen.fill((175,215,70))
     main_game.draw_elements()
     pygame.display.update()
