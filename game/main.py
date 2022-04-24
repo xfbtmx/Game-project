@@ -8,9 +8,53 @@ class SNAKE:
         self.new_block = False
 
     def draw_snake(self):
-        for block in self.body:
-            block_rect = pygame.Rect(block.x * cell_size,block.y * cell_size, cell_size, cell_size)
-            pygame.draw.rect(screen,(183,191,122),block_rect)
+        self.update_head_graphics()
+        self.update_tail_graphics()
+
+        for index,block in enumerate(self.body):
+            x_pos = int(block.x * cell_size)
+            y_pos = int(block.y * cell_size)
+            block_rect = pygame. Rect(x_pos,y_pos,cell_size,cell_size)
+
+            if index == 0:
+                screen.blit(self.head_right,block_rect)
+            elif index == len(self.body) -1:
+                screen.blit(self.tail,block_rect)
+            else:
+                previous_block = self.body[index + 1] - block
+                next_block = self.body[index -1] - block
+                if previous_block.x == next_block.x:
+                    screen.blit(self.body_vertical,block_rect)
+                elif previous_block.y == next_block.y:
+                    screen.blit(self.body_horizontal,block_rect)
+                else:
+                   if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == -1:
+                       screen.blit(self.body_tl,block_rect)
+                   elif previous_block.x == -1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == -1:
+                       screen.blit(self.body_bl,block_rect)
+                   elif previous_block.x == 1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == 1:
+                       screen.blit(self.body_tr,block_rect)
+                   elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
+                       screen.blit(self.body_br,block_rect)
+                
+
+
+             
+
+
+    def update_head_graphics(self):
+        head_relation = self.body[1] - self.body[0]
+        if head_relation == Vector2(1,0): self.head = self.head_left
+        elif head_relation == Vector2(-1,0): self.head = self.head_right
+        elif head_relation == Vector2(0,1): self.head = self.head_up
+        elif head_relation == Vector2(0,-1): self.head = self.head_down          
+
+    def update_tail_graphics(self):
+        tail_relation = self.body[1] - self.body[0]
+        if tail_relation == Vector2(1,0): self.tail = self.tail_left
+        elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
+        elif tail_relation == Vector2(0,1): self.tail = self.tail_up
+        elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
 
     def move_snake(self):
         if self.new_block == True:
@@ -33,7 +77,7 @@ class FRUIT:
         self.randomize() 
 
     def draw_fruit(self):
-        fruit_rectang = pygame.Rect(self.pos.x * cell_size,self.pos.y * cell_size,cell_size,cell_size)
+        fruit_rectang = pygame.Rect(int(self.pos.x * cell_size),int(self.pos.y * cell_size),cell_size,cell_size)
         screen.blit(apple,fruit_rectang)
 
     def randomize(self):
